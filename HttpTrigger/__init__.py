@@ -1,6 +1,9 @@
 import logging
 
 import azure.functions as func
+import mimetypes
+from bs4 import BeautifulSoup
+import urllib.request
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -15,10 +18,30 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         else:
             name = req_body.get('name')
 
+    htmlfile = open("C:/Users/neua/source/repos/Azure Functions - Python - ACOEPython/demohtml.html", 'r', encoding='utf-8')
+    source = htmlfile.read()
+    #print(source)
+    soup = BeautifulSoup(source, 'html.parser')
+    greeting = soup.find(id='greeting')
+    print("COMMENTS BELOW:")
+    print(greeting)
+    greeting.string.replace_with('Hi '+ name)
+    greeting = soup.find(id = 'greeting')
+    #print(source)
+    with open("C:/Users/neua/source/repos/Azure Functions - Python - ACOEPython/demohtml.html", "w") as file:
+        file.write(str(soup))
+    htmlfile.close()
     if name:
-        return func.HttpResponse(f"Hello {name}!")
+        #return func.HttpResponse(f"Hello {name}!")
+        path = "C:/Users/neua/source/repos/Azure Functions - Python - ACOEPython/demohtml.html" # or other paths under `MyFunctionProj`
+        filename = f"{path}"
+        #filename = f"{path}/{name}"
+        with open(filename, 'rb') as f:
+            mimetype = mimetypes.guess_type(filename)
+            return func.HttpResponse(f.read(), mimetype=mimetype[0])
     else:
         return func.HttpResponse(
              "Please pass a name on the query string or in the request body",
              status_code=400
         )
+# C:\Users\neua\OneDrive - Chevron\Documents\azurefunctionsunavalible.html
