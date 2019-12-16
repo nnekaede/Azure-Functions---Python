@@ -5,6 +5,8 @@ import azure.functions as func
 import json
 import os
 import io
+#sys.path.append('C:\Users\neua\source\repos\Azure Functions - Python - ACOEPython\dog-classfication')
+sys.path.append('/home/site/wwwroot') 
 
 # Import helper script
 from . import predict
@@ -31,6 +33,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         return json.dumps(results)
     else:
         return func.HttpResponse(
-             "Please pass a link on the query string or in the request body",
-             status_code=400
+            "Please pass a link on the query string or in the request body",
+            status_code=400
         )
