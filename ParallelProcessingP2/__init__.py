@@ -1,5 +1,6 @@
 import logging
 import collections
+import multiprocessing
 from pprint import pprint
 
 import azure.functions as func
@@ -38,6 +39,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     )
 
     start = time.time()
+    
+    pool = multiprocessing.Pool()
+    result = pool.map(transform, Team)
+
     result = tuple(map(
         transform,
         Team
