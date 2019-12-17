@@ -1,4 +1,4 @@
-tensorflow-1.6.0rc1-cp36-cp36m-win_amd64.whl
+tensorflow
 pillow==5.0.0
 numpy==1.14.1
 flask
