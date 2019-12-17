@@ -5,8 +5,8 @@ import azure.functions as func
 import json
 import os
 import io
-import sys
-from os import path
+#import sys
+#from os import path
 #sys.path.append('C:\Users\neua\source\repos\Azure Functions - Python - ACOEPython\dog-classfication')
 #sys.path.append('/home/site/wwwroot') 
 #sys.path.append(path.dirname(path.dirname(__file__)))

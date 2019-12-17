@@ -4,3 +4,4 @@ numpy==1.14.1
 flask
 urllib3
 requests
+virtualenv
