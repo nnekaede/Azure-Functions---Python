@@ -1,8 +1,9 @@
 import logging
 import collections
-from pprint import import pprint
+from pprint import pprint
 
 import azure.functions as func
+import time
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -16,11 +17,16 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             pass
         else:
             name = req_body.get('name')
+
+    def transform(x):
+        return {'last': x.last, 'first': x.first}
+    
     teammate = collections.namedtuple('teammate', [
             'first',
             'last',
             'position',
             'email', ])
+
     Team = (
         teammate(first='Nneka', last='Ede', position='Automation Anaylst', email='nneka.ede@chevron.com'),
         teammate(first='Nivea', last='Tejada', position='Automation Anaylst', email='nneka.ede@chevron.com'),
@@ -29,14 +35,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         teammate(first='Carlito', last='Vedan', position='Automation Anaylst', email='nneka.ede@chevron.com'),
     )
 
-    import time
-
-    def transform(x):
-        return {'last': x.last, 'first': x.first}
-
     result = tuple(map(
         transform,
-        team
+        Team
     ))
 
     if name:
